@@ -4,7 +4,6 @@ format: html
 ---
 
 # Setup
- 
 
 ```{python}
 ## Dependencies
@@ -53,4 +52,11 @@ headers['Authorization'] = f"bearer {TOKEN['access_token']}"
 headers
 ```
 
-Now we can access every end point within the reddit API.
+Now we can access every end point within the reddit API. Let's confirm that we can access our own user data.
+
+```{python}
+res = requests.get('https://oauth.reddit.com/api/v1/me', headers=headers)
+res
+```
+
+Okay looks good. Sucecssful request.
