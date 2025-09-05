@@ -1,0 +1,24 @@
+---
+title: "Learning nflreadr"
+format: html
+---
+
+
+```{r}
+#| code-summary: 'Setup'
+library(nflreadr)
+library(tidyverse)
+```
+
+# Data
+
+```{r}
+
+# Load 2023 play-by-play data
+pbp <- load_pbp(2023) %>%
+  filter(season_type == "REG")
+```
+
+# EDA
+
+
