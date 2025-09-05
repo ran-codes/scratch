@@ -1,0 +1,56 @@
+---
+title: "Test Reddit API credientiatls "
+format: html
+---
+
+# Setup
+ 
+
+```{python}
+## Dependencies
+import polars as pl
+import requests
+
+## Directory Management
+from pyprojroot.here import here
+
+## Secrets Management
+import os
+from dotenv import load_dotenv
+load_dotenv(here(".env"))
+CLIENT_ID = "IpWVKGarcDDJSj6AQhexTQ"
+SECRET_KEY = os.getenv("REDDIT_CLIENT_SECRET")
+REDDIT_USERNAME = os.getenv("REDDIT_USERNAME")
+REDDIT_PASSWORD = os.getenv("REDDIT_PASSWORD")
+```
+
+
+# Authetications
+
+
+```{python}
+auth = requests.auth.HTTPBasicAuth(CLIENT_ID, SECRET_KEY)
+data = {
+    'grant_type': 'password',
+    'username': REDDIT_USERNAME,
+    'password': REDDIT_PASSWORD
+}
+headers = {'User-Agent': 'MyAPI/0.0.1'}
+res = requests.post('https://www.reddit.com/api/v1/access_token',
+                    auth=auth, data=data, headers=headers)
+```
+
+Now we got our access token
+
+```{python}
+TOKEN = res.json()
+```
+
+THis is token that we need add headers to access the API. 
+
+```{python}
+headers['Authorization'] = f"bearer {TOKEN['access_token']}"
+headers
+```
+
+Now we can access every end point within the reddit API.
